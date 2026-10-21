@@ -1,6 +1,6 @@
 @echo off
 setlocal
-title SHU AutoNet Pro - Portable Builder
+title SHU AutoNet - Portable Builder
 cd /d "%~dp0"
 for /f "tokens=2*" %%a in ('reg query "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" /v Path 2^>nul') do set "SYS_PATH=%%b"
 for /f "tokens=2*" %%a in ('reg query "HKCU\Environment" /v Path 2^>nul') do set "USER_PATH=%%b"
