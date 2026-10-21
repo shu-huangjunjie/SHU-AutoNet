@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SHU AutoNet</title>
+    <link rel="icon" type="image/png" href="/icon.png" />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div class="ambient-glow"></div>
+    <div id="app" class="container">
+      <!-- Compact Header with Theme Switcher -->
+      <header class="header">
+        <div class="brand">
+          <h1 class="main-title">SHU AUTO NET <span class="pro-tag">PRO</span></h1>
+        </div>
+        <button type="button" id="theme_toggle_btn" class="theme-toggle" title="Toggle Dark / Light Mode" aria-label="Toggle Theme">
+          <svg class="theme-icon sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="theme-icon moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+      </header>
+
+      <main class="scrollable-content">
+        <!-- 1. User Credentials -->
+        <section class="glass-card">
+          <div class="card-header">
+            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <h2 class="card-title">USER CREDENTIALS</h2>
+          </div>
+          <div class="form-group">
+            <div class="input-wrapper">
+              <label for="user_id">Student ID</label>
+              <input type="text" id="user_id" placeholder="Enter student ID" autocomplete="off" />
+            </div>
+            <div class="input-wrapper">
+              <label for="password">Password</label>
+              <div class="password-field">
+                <input type="password" id="password" placeholder="Enter password" autocomplete="off" />
+                <button type="button" id="toggle_pwd_btn" class="icon-btn-ghost" title="Toggle visibility">
+                  <svg class="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. Connection Parameters -->
+        <section class="glass-card">
+          <div class="card-header">
+            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+              <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+              <line x1="6" y1="6" x2="6.01" y2="6"></line>
+              <line x1="6" y1="18" x2="6.01" y2="18"></line>
+            </svg>
+            <h2 class="card-title">CONNECTION PARAMETERS</h2>
+          </div>
+          <div class="form-grid">
+            <div class="input-wrapper">
+              <label for="auth_server">Auth Server</label>
+              <input type="text" id="auth_server" placeholder="10.10.9.9" />
+            </div>
+            <div class="input-wrapper">
+              <label for="auth_port">Port</label>
+              <input type="text" id="auth_port" placeholder="8080" />
+            </div>
+            <div class="input-wrapper full-width">
+              <label for="test_url">Probe URL</label>
+              <input type="text" id="test_url" placeholder="http://123.123.123.123/" />
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. Advanced Parsing (Collapsible) -->
+        <section class="glass-card collapsible">
+          <div class="collapsible-header" id="adv_toggle">
+            <div class="header-left">
+              <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              </svg>
+              <h2 class="card-title">ADVANCED PARSING</h2>
+            </div>
+            <svg class="chevron-icon" id="adv_arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </div>
+          <div class="collapsible-content" id="adv_body">
+            <div class="form-grid">
+              <div class="input-wrapper">
+                <label for="parse_start_token">Start Token</label>
+                <input type="text" id="parse_start_token" placeholder="index.jsp?" />
+              </div>
+              <div class="input-wrapper">
+                <label for="parse_start_offset">Offset</label>
+                <input type="number" id="parse_start_offset" placeholder="10" />
+              </div>
+              <div class="input-wrapper full-width">
+                <label for="parse_end_token">End Token</label>
+                <input type="text" id="parse_end_token" placeholder="'</script>" />
+              </div>
+            </div>
+            <p class="card-tip">Adjust tokens only if the campus portal structure is modified.</p>
+          </div>
+        </section>
+
+        <!-- 4. Preferences (High Visibility 2x2 Grid) -->
+        <section class="glass-card">
+          <div class="card-header">
+            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path>
+            </svg>
+            <h2 class="card-title">PREFERENCES</h2>
+          </div>
+          <div class="pref-grid">
+            <div class="pref-card">
+              <div class="pref-meta">
+                <svg class="pref-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                <span class="pref-label">Minimize to Tray</span>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="minimize_to_tray" />
+                <span class="slider"></span>
+              </label>
+            </div>
+
+            <div class="pref-card">
+              <div class="pref-meta">
+                <svg class="pref-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+                <span class="pref-label">Close to Tray</span>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="close_to_tray" />
+                <span class="slider"></span>
+              </label>
+            </div>
+
+            <div class="pref-card">
+              <div class="pref-meta">
+                <svg class="pref-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path>
+                  <line x1="12" y1="2" x2="12" y2="12"></line>
+                </svg>
+                <span class="pref-label">Launch on Boot</span>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="start_with_windows" />
+                <span class="slider"></span>
+              </label>
+            </div>
+
+            <div class="pref-card">
+              <div class="pref-meta">
+                <svg class="pref-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"></path>
+                  <line x1="1" y1="1" x2="23" y2="23"></line>
+                </svg>
+                <span class="pref-label">Silent Minimized</span>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="launch_minimized" />
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5. Action Buttons -->
+        <div class="action-dock">
+          <button id="save_btn" class="btn btn-secondary">
+            <span>SAVE CONFIG</span>
+          </button>
+          <button id="toggle_monitor_btn" class="btn btn-primary">
+            <span id="monitor_btn_text">START MONITORING</span>
+          </button>
+        </div>
+
+        <!-- 6. System Log Terminal -->
+        <section class="terminal-card">
+          <div class="terminal-header">
+            <div class="terminal-dots">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="terminal-title">LIVE LOG STREAM</span>
+            </div>
+            <div class="terminal-actions">
+              <button id="test_conn_btn" class="btn-micro" title="Test manual authentication">TEST AUTH</button>
+              <button id="clear_log_btn" class="btn-micro" title="Clear console">CLEAR</button>
+            </div>
+          </div>
+          <div id="log_console" class="terminal-body"></div>
+        </section>
+      </main>
+
+      <!-- Status Bar -->
+      <footer class="status-bar">
+        <div class="status-left">
+          <span class="status-orb" id="status_indicator"></span>
+          <span id="status_text" class="status-label">Offline</span>
+        </div>
+        <div class="status-right">
+          <span class="tech-tag">Tauri v2 • Portable</span>
+        </div>
+      </footer>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

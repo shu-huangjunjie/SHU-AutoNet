@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+
+# Frontend build output
+dist/
+
+# Rust / Tauri build output
+src-tauri/target/
+src-tauri/gen/schemas/
+
+# Portable release output (publish the .exe via GitHub Releases instead)
+dist_portable/
+*.zip
+
+# Local configuration may contain plaintext credentials.
+# Only the empty template at the repository root is tracked.
+config.json
+!/config.json
+
+# Logs
+*.log
+npm-debug.log*
+*.bak
+*.dmp
+
+# Editor / OS files
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini

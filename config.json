@@ -1,0 +1,14 @@
+{
+    "user_id": "",
+    "password": "",
+    "auth_server": "10.10.9.9",
+    "auth_port": "8080",
+    "test_url": "http://123.123.123.123/",
+    "minimize_to_tray": true,
+    "close_to_tray": true,
+    "start_with_windows": false,
+    "launch_minimized": false,
+    "parse_start_token": "index.jsp?",
+    "parse_start_offset": 10,
+    "parse_end_token": "'</script>"
+}

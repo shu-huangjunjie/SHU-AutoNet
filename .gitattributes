@@ -1,0 +1,10 @@
+* text=auto eol=lf
+
+# Windows batch scripts must keep CRLF line endings to run correctly
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Binary assets
+*.png binary
+*.ico binary
+*.exe binary
