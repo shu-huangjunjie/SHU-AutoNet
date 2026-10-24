@@ -3,6 +3,8 @@ pub mod autostart;
 pub mod config;
 pub mod monitor;
 pub mod network;
+#[cfg(test)]
+mod test_http;
 
 use auth::ShuConnect;
 use autostart::AutoStartManager;
