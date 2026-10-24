@@ -17,12 +17,23 @@
 
 ## 下载与使用
 
-1. 在 [Releases](https://github.com/shu-huangjunjie/SHU-AutoNet/releases) 下载 `SHU_AutoNet_Portable_v1.0.0.zip`。
+1. 在 [Releases](https://github.com/shu-huangjunjie/SHU-AutoNet/releases) 下载 `SHU_AutoNet_Portable_v1.0.1.zip`。
 2. 解压到桌面、文档或其他可写目录，再运行 `SHU_AutoNet.exe` 或 `QuickStart.bat`。
 3. 填写自己的校园网账号和密码，点击 **SAVE CONFIG** 保存。
 4. 点击 **START MONITORING** 开始监测；可使用 **TEST AUTH** 进行手动认证测试。
 
 已保存账号密码时，程序会在下次启动后自动开启监测。托盘菜单中的 **Exit** 可完整退出程序。
+
+### 断线重连修复（2026-10-24）
+
+- 兼容校园网认证设备对 HTTP 请求头大小写的要求，使用 `Host:` 等首字母大写格式，修复下线后请求被设备直接关闭、无法捕获登录参数的问题。
+- 联网探测及校园网认证使用直连，避免系统代理不可用或响应慢时误判断网。
+- 并行检查多个探测地址与认证端口，避免被无响应地址或错误页面阻塞。
+- 兼容认证页中的不同引号与 HTML 转义格式；每轮重连最多等待 30 秒。
+- 认证完成后再次验证外网，界面显示实际联网状态。
+- 监测日志同时保存在 EXE 同目录的 `autonet.log`（约 256 KiB 后轮换清空），方便排查问题。
+
+已在本机使用构建后的便携 EXE 完成两轮连续真实下线测试：认证服务器注销会话后，分别约 12.86 秒和 12.31 秒由后台监测自行登录并恢复外网。每轮均独立确认了离线状态、程序登录成功、校园网会话恢复及外网 HTTP 204 响应。该结果仅覆盖当前电脑和当前校园网接入场景。
 
 ### 使用条件
 
@@ -64,6 +75,14 @@ rustup toolchain install stable-x86_64-pc-windows-msvc
 
 脚本会安装前端依赖、构建前后端，并将 Windows 便携程序输出到 `dist_portable/`。使用 MSVC 构建，并静态链接 C 运行库。
 
+从已构建的 EXE 生成包含空白配置的便携版压缩包与 SHA-256 校验文件：
+
+```powershell
+powershell -NoProfile -File .\package_portable.ps1
+```
+
+打包脚本只收集明确列出的程序文件和空白配置，不会收集本机运行日志、备份程序或个人配置。
+
 开发调试可运行 `QuickStart_Dev.bat`。
 
 ### 回归测试
@@ -73,6 +92,18 @@ cargo +stable-x86_64-pc-windows-msvc test --locked --manifest-path src-tauri/Car
 ```
 
 测试覆盖没有 Tokio 上下文时启动监测、重复启动、停止和重新启动，防止监测启动时闪退的问题再次出现。
+
+运行认证与网络回归测试（使用本地模拟服务器）：
+
+```powershell
+cargo +stable-x86_64-pc-windows-msvc test --locked --manifest-path src-tauri/Cargo.toml --lib --test monitor_runtime
+```
+
+覆盖失效代理、阻塞探测、认证页解析、登录表单编码、端口回退与认证失败处理。实际网络探测需显式运行：
+
+```powershell
+cargo +stable-x86_64-pc-windows-msvc test --locked --manifest-path src-tauri/Cargo.toml --lib live_direct_connectivity -- --ignored --nocapture
+```
 
 ## 项目结构
 
