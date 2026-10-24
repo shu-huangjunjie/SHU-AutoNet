@@ -24,9 +24,17 @@ fn get_config() -> AppConfig {
 
 #[tauri::command]
 fn save_config(mut config: AppConfig) -> Result<(), String> {
-    let _ = AutoStartManager::apply(config.start_with_windows, config.launch_minimized);
+    AutoStartManager::apply(config.start_with_windows, config.launch_minimized)?;
     config.start_with_windows = AutoStartManager::is_enabled();
     ConfigManager::save(&config)
+}
+
+#[tauri::command]
+fn get_app_info() -> serde_json::Value {
+    serde_json::json!({
+        "version": env!("CARGO_PKG_VERSION"),
+        "portable": ConfigManager::is_portable()
+    })
 }
 
 #[tauri::command]
@@ -90,6 +98,7 @@ pub fn run() {
         .manage(monitor_state)
         .invoke_handler(tauri::generate_handler![
             get_config,
+            get_app_info,
             save_config,
             is_monitoring,
             toggle_monitoring,
