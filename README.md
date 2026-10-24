@@ -2,7 +2,7 @@
 
 上海大学校园网自动认证与断线重连工具，支持后台监测、系统托盘和开机启动。
 
-使用 TypeScript + Rust（Tauri v2）构建，提供 Windows x64 便携版。使用者无需安装 Python、Node.js 或 Rust。
+使用 TypeScript + Rust（Tauri v2）构建，提供 Windows x64 安装版和便携版。使用者无需安装 Python、Node.js 或 Rust。
 
 [下载便携版](https://github.com/shu-huangjunjie/SHU-AutoNet/releases/latest) · [反馈问题](https://github.com/shu-huangjunjie/SHU-AutoNet/issues)
 
@@ -16,6 +16,19 @@
 - 配置保存在 EXE 同目录下的 `config.json`，方便携带和迁移。
 
 ## 下载与使用
+
+### Windows 安装版（v1.0.2）
+
+运行 `SHU_AutoNet_v1.0.2_x64_Setup.exe`，按照中文安装向导完成安装。默认仅为当前用户安装，可从开始菜单启动，也可在 Windows 设置的“已安装的应用”中卸载。
+
+- 安装前请从托盘的 **Exit** 退出正在运行的便携版。
+- 安装版配置保存在 `%APPDATA%\com.shu.autonet\config.json`，日志位于同一目录；配置不写入程序安装目录。
+- 沿用便携版设置时，先退出程序，再将旧版的个人 `config.json` 复制到上述配置目录。
+- 覆盖安装保留个人配置；普通卸载默认保留配置，可在卸载界面选择删除应用数据。
+- 需要开机启动时，在安装后的程序中开启 **Launch on Boot** 并保存，启动路径会指向安装版。
+- 安装包会检查 WebView2；缺少时通过微软安装引导程序下载运行库，需要可用的网络连接。
+
+### 便携版
 
 1. 在 [Releases](https://github.com/shu-huangjunjie/SHU-AutoNet/releases) 下载 `SHU_AutoNet_Portable_v1.0.1.zip`。
 2. 解压到桌面、文档或其他可写目录，再运行 `SHU_AutoNet.exe` 或 `QuickStart.bat`。
@@ -54,6 +67,14 @@
 本项目为非官方工具，与上海大学官方无隶属关系。
 
 ## 从源码构建
+
+构建 Windows 安装版：
+
+```powershell
+.\build_installer.bat
+```
+
+NSIS 安装包输出到 `src-tauri/target/release/bundle/nsis/`。
 
 开发环境需要：
 
