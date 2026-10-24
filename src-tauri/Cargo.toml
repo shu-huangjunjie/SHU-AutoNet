@@ -1,6 +1,6 @@
 [package]
 name = "shu-autonet"
-version = "1.0.0"
+version = "1.0.1"
 description = "Shanghai University Campus Network Auto Authenticator"
 authors = ["huangjunjie"]
 edition = "2021"
