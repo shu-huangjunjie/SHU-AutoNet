@@ -259,7 +259,7 @@ async function init() {
     if (isTauri) {
       try {
         await invoke("save_config", { config: cfg });
-        appendLog("[SUCCESS] Configuration saved locally (portable relative path).");
+        appendLog("[SUCCESS] Configuration saved.");
       } catch (err) {
         appendLog(`[ERROR] Failed to save configuration: ${err}`);
       }
@@ -322,6 +322,9 @@ async function init() {
   // Load config and listen to Tauri events
   if (isTauri) {
     try {
+      const info = await invoke<{ version: string; portable: boolean }>("get_app_info");
+      const appInfo = document.getElementById("app_info");
+      if (appInfo) appInfo.textContent = `v${info.version} • ${info.portable ? "Portable" : "Installed"}`;
       const config = (await invoke("get_config")) as AppConfig;
       populateForm(config);
 
