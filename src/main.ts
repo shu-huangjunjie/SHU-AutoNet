@@ -335,6 +335,10 @@ async function init() {
         setMonitoringUI(event.payload);
       });
 
+      await listen<boolean>("network_state", (event) => {
+        updateStatus(event.payload ? "online" : "offline");
+      });
+
       // Check current monitoring state
       const running = (await invoke("is_monitoring")) as boolean;
       setMonitoringUI(running);
