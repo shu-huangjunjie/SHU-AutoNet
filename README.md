@@ -4,7 +4,7 @@
 
 使用 TypeScript + Rust（Tauri v2）构建，提供 Windows x64 安装版和便携版。使用者无需安装 Python、Node.js 或 Rust。
 
-[下载便携版](https://github.com/shu-huangjunjie/SHU-AutoNet/releases/latest) · [反馈问题](https://github.com/shu-huangjunjie/SHU-AutoNet/issues)
+[下载 Windows 安装版](https://github.com/shu-huangjunjie/SHU-AutoNet/releases/latest) · [下载便携版](https://github.com/shu-huangjunjie/SHU-AutoNet/releases/tag/v1.0.1) · [反馈问题](https://github.com/shu-huangjunjie/SHU-AutoNet/issues)
 
 ## 功能
 
@@ -13,13 +13,13 @@
 - 支持关闭或最小化到系统托盘。
 - 支持 Windows 开机启动和最小化启动。
 - 提供深色、浅色主题。
-- 配置保存在 EXE 同目录下的 `config.json`，方便携带和迁移。
+- 安装版配置保存在用户数据目录；便携版配置位于 EXE 同目录，方便携带和迁移。
 
 ## 下载与使用
 
 ### Windows 安装版（v1.0.2）
 
-运行 `SHU_AutoNet_v1.0.2_x64_Setup.exe`，按照中文安装向导完成安装。默认仅为当前用户安装，可从开始菜单启动，也可在 Windows 设置的“已安装的应用”中卸载。
+在 [v1.0.2 发布页](https://github.com/shu-huangjunjie/SHU-AutoNet/releases/tag/v1.0.2) 下载并运行 `SHU_AutoNet_v1.0.2_x64_Setup.exe`，按照中文安装向导完成安装。默认仅为当前用户安装，可从开始菜单启动，也可在 Windows 设置的“已安装的应用”中卸载。
 
 - 安装前请从托盘的 **Exit** 退出正在运行的便携版。
 - 安装版配置保存在 `%APPDATA%\com.shu.autonet\config.json`，日志位于同一目录；配置不写入程序安装目录。
@@ -27,6 +27,9 @@
 - 覆盖安装保留个人配置；普通卸载默认保留配置，可在卸载界面选择删除应用数据。
 - 需要开机启动时，在安装后的程序中开启 **Launch on Boot** 并保存，启动路径会指向安装版。
 - 安装包会检查 WebView2；缺少时通过微软安装引导程序下载运行库，需要可用的网络连接。
+- 当前安装包未做数字签名。
+
+安装版已完成本机安装、启动、覆盖安装、卸载及配置和开机启动保留等 16 项检查；12 项单元测试及 1 项监测运行环境集成测试通过。发布页附有测试记录和 SHA-256 校验文件。
 
 ### 便携版
 
@@ -44,24 +47,24 @@
 - 并行检查多个探测地址与认证端口，避免被无响应地址或错误页面阻塞。
 - 兼容认证页中的不同引号与 HTML 转义格式；每轮重连最多等待 30 秒。
 - 认证完成后再次验证外网，界面显示实际联网状态。
-- 监测日志同时保存在 EXE 同目录的 `autonet.log`（约 256 KiB 后轮换清空），方便排查问题。
+- 监测日志保存在配置目录的 `autonet.log`（便携版为 EXE 同目录，约 256 KiB 后轮换清空），方便排查问题。
 
 已在本机使用构建后的便携 EXE 完成两轮连续真实下线测试：认证服务器注销会话后，分别约 12.86 秒和 12.31 秒由后台监测自行登录并恢复外网。每轮均独立确认了离线状态、程序登录成功、校园网会话恢复及外网 HTTP 204 响应。该结果仅覆盖当前电脑和当前校园网接入场景。
 
 ### 使用条件
 
 - Windows 10/11，x64。
-- 已安装 Microsoft Edge WebView2 Runtime。缺少时请前往 [微软 WebView2 页面](https://developer.microsoft.com/en-us/microsoft-edge/webview2/) 安装 Evergreen Runtime。
+- 已安装 Microsoft Edge WebView2 Runtime。安装版会检查并引导安装；便携版缺少时请前往 [微软 WebView2 页面](https://developer.microsoft.com/en-us/microsoft-edge/webview2/) 安装 Evergreen Runtime。
 - 连接适用的上海大学校园网，并使用自己的有效账号。
-- 程序所在目录可写；请先解压，不要直接在压缩包内运行。
+- 使用便携版时，程序所在目录需可写；请先解压，不要直接在压缩包内运行。
 
 当前发布版已完成本机启动运行检查与监测启停回归测试，尚未完成不同电脑及所有校园网接入场景的验证。如遇问题，请通过 Issues 描述系统版本、网络场景和现象，并隐去账号密码。
 
 ## 配置与隐私
 
 - 默认认证服务器为 `10.10.9.9:8080`；可在界面中调整认证服务器和高级解析参数。
-- 账号密码以明文形式保存在 EXE 同目录的 `config.json`。请妥善保管，不要上传自己的配置或含凭据的截图。
-- 仓库中的 `config.json` 是账号密码留空的模板，发布包也只包含空白模板。
+- 账号密码以明文形式保存在 `config.json`：安装版位于 `%APPDATA%\com.shu.autonet`，便携版位于 EXE 同目录。请妥善保管，不要上传自己的配置或含凭据的截图。
+- 仓库和便携发布包中的 `config.json` 是账号密码留空的模板；安装包不含个人配置。
 - 移动程序位置后，如需继续开机启动，请重新保存开机启动设置。
 
 本项目为非官方工具，与上海大学官方无隶属关系。
@@ -135,6 +138,7 @@ src-tauri/tests/      监测运行环境回归测试
 src-tauri/icons/      应用图标
 config.json           空白配置模板
 build_portable.bat    Windows 便携版构建脚本
+build_installer.bat   Windows NSIS 安装版构建脚本
 ```
 
 ## 许可证
